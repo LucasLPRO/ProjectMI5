@@ -8,6 +8,7 @@ use App\Service\PanierService;
 class PanierController extends AbstractController {
     public function index(PanierService $panier) {
         $commande = $panier->getContenu();
+        $oui = 55;
         return $this->render('Panier/index.html.twig');
     }
 }
