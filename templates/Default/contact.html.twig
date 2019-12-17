@@ -1,0 +1,17 @@
+{# templates/home.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <main role="main" class="container">
+        <div class="main-div">
+            <div class="card clickable" onclick="window.open('https://www-info.iut2.univ-grenoble-alpes.fr/licence-pro-mi/')">
+                <img src="{{ asset('images/iut2_info.png') }}" class="card-img" alt="logo IUT2">
+                <div class="card-body">
+                    <h1 class="card-title"><i class="fas fa-code"></i> Licence Pro MI AW</h1>
+                    <h2 class="card-title"><i class="fab fa-symfony"></i> Module MI5</h2>
+                    <p><i class="far fa-copyright"></i> LucasLPRO 2019</p>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,8 @@
+<script>
+    $("#searchButton").click(
+        function () {
+            var searchString = $('#searchString').val().trim();
+            window.location.href='{{ path('chercher_page')}}/'+encodeURI(searchString);
+            return false;
+        });
+</script>

@@ -1,0 +1,35 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+home_page:
+    path: /{_locale}
+    controller: App\Controller\DefaultController::index
+    requirements:
+        _locale: '%app.supported_locales%'
+    defaults:
+        _locale: fr
+        
+contact_page:
+    path: /{_locale}/contact
+    controller: App\Controller\DefaultController::contact
+    requirements:
+        _locale: '%app.supported_locales%'
+    
+boutique_page:
+    path: /{_locale}/boutique
+    controller: App\Controller\BoutiqueController::index
+    
+rayon_page:
+    path: /{_locale}/rayon/{idCategorie}
+    controller: App\Controller\BoutiqueController::rayon
+    
+chercher_page:
+    path: /{_locale}/boutique/chercher/{libelle}
+    controller: App\Controller\BoutiqueController::chercher
+    defaults:
+        libelle: ""
+        
+panier_index:
+    path: /{_locale}/panier
+    controller: App\Controller\PanierController::index
+    

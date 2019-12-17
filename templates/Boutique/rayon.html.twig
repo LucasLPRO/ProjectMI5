@@ -1,0 +1,40 @@
+{# boutique/rayon.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if categorie is defined %}
+        Rayon {{ categorie.libelle }}
+    {% else %}
+        {{ libelle }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="alert alert-dark col-md-12">
+            <h1><i class="fab fa-product-hunt"></i>
+                {% if categorie is defined %}
+                    Rayon {{ categorie.libelle }} / {{ produits|length }} Produit(s)
+                {% else %}
+                    {% trans %} Recherche « {% endtrans %} {{ libelle }} {% trans %} » / {% endtrans %} {{ produits|length }} {% trans %} Produit(s){% endtrans %}
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        {% for item in produits %}
+            <div class="col-md-4">
+                <div class="card clickable" onclick=""window.location.href='{{ path('rayon_page', { 'idCategorie': item.id })}}'"">
+                    <img class="card-img-produit" src="{{ asset(item.visuel) }}" alt="{{ item.libelle }}">
+                    <div class="card-body">
+                        <h4 class="card-title"> {{ item.libelle|upper }} </h4>
+                        <p class="card-text"><i> {{ item.texte }}</i></p>
+                        <h2>
+                            <span class="badge badge-primary"><i class="fas fa-cart-plus"></i> {{ item.prix }} €</span>
+                        </h2>
+                    </div>
+                </div>    
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/fontawsome-5.all.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/projet.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
+        <!--navbar-->
+        {% include "navbar.html.twig" %}
+        {% block body %}
+        {% endblock %}
+        <main role="main" class="container">
+            <div class="main-div">
+        {% block content %}
+        {% endblock %}
+            </div>
+        </main>
+        {% block script %}
+        {% endblock %}
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.slim.min.js') }}"></script>
+        {% include "javascript.html.twig" %}
+    </body>
+</html>

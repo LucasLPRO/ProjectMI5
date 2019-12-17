@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="fCaiLfD" resname="Ici rien à vendre, c'est juste pour apprendre">
+        <source>Ici rien à vendre, c'est juste pour apprendre</source>
+        <target>Ici rien à vendre, c'est juste pour apprendre</target>
+      </trans-unit>
+      <trans-unit id="m0Wj5sB" resname="Démo Symfony 4.3">
+        <source>Démo Symfony 4.3</source>
+        <target>Démo Symfony 4.3</target>
+      </trans-unit>
+      <trans-unit id="K7iKgAf" resname="Boutique">
+        <source>Boutique</source>
+        <target>Boutique</target>
+      </trans-unit>
+      <trans-unit id="x9W7oJ2" resname="Chercher produits...">
+        <source>Chercher produits...</source>
+        <target>Chercher produits...</target>
+      </trans-unit>
+      <trans-unit id="UzFhc1Y" resname="Accueil">
+        <source>Accueil</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id=".vb5wlX" resname="Recherche «">
+        <source>Recherche «</source>
+        <target>Recherche «</target>
+      </trans-unit>
+      <trans-unit id="3J8jgdU" resname="» /">
+        <source>» /</source>
+        <target>» /</target>
+      </trans-unit>
+      <trans-unit id="q3saEP." resname="Produit(s)">
+        <source>Produit(s)</source>
+        <target>Produit(s)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
