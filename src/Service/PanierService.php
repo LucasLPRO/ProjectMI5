@@ -18,20 +18,20 @@ class PanierService {
         $this->boutique = $boutique;
         $this->session = $session;
         // Récupération du panier en session s'il existe, init. à vide sinon
-        if ($session->has('panier')) {
-            $this->panier = $session->get('panier', array()); // initialisation du Panier
+        if ($session->has('PANIER_SESSION')) {
+            $this->panier = $session->get('PANIER_SESSION', array()); // initialisation du Panier
         } else {
             $this->panier = array();
-        }        
+        }
     }
     
     // getContenu renvoie le contenu du panier
-    //  tableau d'éléments [ "produit" => un produit, "quantite" => quantite ]
+    // tableau d'éléments [ "produit" => un produit, "quantite" => quantite ]
     public function getContenu() { 
         $contenu = array();
-        foreach($this->panier as $item) {
-            $produit = $this->boutique->findProduitById(key($item));
-            $contenu[] += array("produit" => $produit[libelle], "quantite" => $item[key($item)]);
+        foreach($this->panier as $idProduit => $quantite) {
+            $produit = $this->boutique->findProduitById($idProduit);
+            $contenu[] = array("produit" => $produit, "quantite" => $quantite);
         }
         return $contenu;
     }
@@ -41,39 +41,49 @@ class PanierService {
         $contenu = $this->getContenu();
         $total = 0;
         foreach($contenu as $item) {
-            $total += $item["produit"]["prix"];
+            $total += $item["produit"]["prix"] * $item["quantite"];
         }
         return $total;
     }
     
     // getNbProduits renvoie le nombre de produits dans le panier
     public function getNbProduits() {
-        $contenu = $this->getContenu();
         $nbProduits = 0;
-        foreach($contenu as $item) {
-            $nbProduits += $item["produit"]["quantite"];
+        foreach($this->panier as $idProduit => $quantite) {
+            $nbProduits += $quantite;
         }
         return $nbProduits;        
     }
     
     // ajouterProduit ajoute au panier le produit $idProduit en quantite $quantite 
-    public function ajouterProduit(int $idProduit, int $quantite = 1) { 
-        $this->panier += array($idProduit => $quantite);
+    public function ajouterProduit(int $idProduit, int $quantite = 1) {        
+        if (isset($this->panier[$idProduit])) {
+            $this->panier[$idProduit] += $quantite;
+        } else {
+            $this->panier[$idProduit] = $quantite;
+        }
+        $this->session->set('PANIER_SESSION', $this->panier);
     }
     
     // enleverProduit enlève du panier le produit $idProduit en quantite $quantite 
     public function enleverProduit(int $idProduit, int $quantite = 1) { 
-        $qte = $this->panier[$idProduit] - $quantite;
-        $this->panier[$idProduit] = $qte;
+        //$qte = $this->panier[$idProduit] - $quantite;
+        $this->panier[$idProduit] -= $quantite;
+        $this->session->set('PANIER_SESSION', $this->panier);
+        if ($this->panier[$idProduit] == 0) {
+            $this->supprimerProduit($idProduit);
+        }
     } 
     
     // supprimerProduit supprime complètement le produit $idProduit du panier
     public function supprimerProduit(int $idProduit) { 
-        array_splice($this->panier, $idProduit);
+        unset($this->panier[$idProduit]);
+        $this->session->set('PANIER_SESSION', $this->panier);
     }
     
     // vider vide complètement le panier
     public function vider() { 
         $this->panier = array();
+        $this->session->set('PANIER_SESSION', $this->panier);
     }
 }
