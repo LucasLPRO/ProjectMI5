@@ -38,7 +38,7 @@
                     <img src="{{ asset(item.produit.visuel) }}"  class="cart-img-produit" alt="{{ item.produit.libelle }}">
                 </td>
                 <td>
-                    <a href="{{ path('rayon_page', { 'idCategorie': item.produit.idCategorie })}}">
+                    <a href="{{ path('rayon_page', { 'idCategorie': item.produit.categorie.id })}}">
                         <b>{{ item.produit.libelle }}</b>
                     </a>
                 </td>
@@ -65,20 +65,22 @@
             </tr>
         {% endfor %}  
         </tbody>
-        <thead>
-            <tr>
-                <th class="text-right" colspan="4">
-                    Total </th>
-                <th class="text-right">
-                    {{ total }}
-                </th>
-                <th>
-                    <a href="{{ path('panier_vider')}}">
-                        <i class="fas fa-trash text-muted" data-toggle="tooltip" title="Vider le Panier" data-placement="right" data-html="true"></i>
-                    </a>
-                </th>
-            </tr>
-        </thead>
+        {% if nbProduit > 0 %}
+            <thead>
+                <tr>
+                    <th class="text-right" colspan="4">
+                        Total </th>
+                    <th class="text-right">
+                        {{ total }}
+                    </th>
+                    <th>
+                        <a href="{{ path('panier_vider')}}">
+                            <i class="fas fa-trash text-muted" data-toggle="tooltip" title="Vider le Panier" data-placement="right" data-html="true"></i>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        {% endif %}
     </table>
 </div>
 {% endblock %}

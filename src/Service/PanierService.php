@@ -3,19 +3,22 @@
 // src/Service/PanierService.php
 namespace App\Service;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Service\BoutiqueService;
+use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 // Service pour manipuler le panier et le stocker en session
 class PanierService {
     ////////////////////////////////////////////////////////////////////////////
     const PANIER_SESSION = 'panier'; // Le nom de la variable de session du panier
     private $session;  // Le service Session
-    private $boutique; // Le service Boutique
+    //private $boutique; // Le service Boutique
+    private $categorieRepository;
+    private $produitRepository;
     private $panier;   // Tableau associatif idProduit => quantite
 	                   //  donc $this->panier[$i] = quantite du produit dont l'id = $i
     // constructeur du service
-    public function __construct(SessionInterface $session, BoutiqueService $boutique) {
-        // Récupération des services session et BoutiqueService
-        $this->boutique = $boutique;
+    public function __construct(SessionInterface $session, CategorieRepository $categorieRepository, ProduitRepository $produitRepository) {
+        $this->categorieRepository = $categorieRepository;
+        $this->produitRepository = $produitRepository;
         $this->session = $session;
         // Récupération du panier en session s'il existe, init. à vide sinon
         if ($session->has('PANIER_SESSION')) {
@@ -30,7 +33,7 @@ class PanierService {
     public function getContenu() { 
         $contenu = array();
         foreach($this->panier as $idProduit => $quantite) {
-            $produit = $this->boutique->findProduitById($idProduit);
+            $produit = $this->produitRepository->findOneById($idProduit);
             $contenu[] = array("produit" => $produit, "quantite" => $quantite);
         }
         return $contenu;
@@ -41,7 +44,7 @@ class PanierService {
         $contenu = $this->getContenu();
         $total = 0;
         foreach($contenu as $item) {
-            $total += $item["produit"]["prix"] * $item["quantite"];
+            $total += $item["produit"]->getPrix() * $item["quantite"];
         }
         return $total;
     }

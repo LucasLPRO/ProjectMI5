@@ -4,7 +4,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\BoutiqueService;
 use App\Service\PanierService;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\ProduitRepository;
 
 class PanierController extends AbstractController {
     public function index(PanierService $panier) {
@@ -21,8 +21,8 @@ class PanierController extends AbstractController {
                 ]);
     }
     
-    public function ajouter(PanierService $panier, BoutiqueService $boutique, $idProduit, $quantite) {
-        $produit = $boutique->findProduitById($idProduit);
+    public function ajouter(PanierService $panier, ProduitRepository $produitRepository, $idProduit, $quantite) {
+        $produit = $produitRepository->findOneById($idProduit);
  
         if (!$produit) {
             throw $this->createNotFoundException('Le produit n\'existe pas');
@@ -32,8 +32,8 @@ class PanierController extends AbstractController {
         return $this->redirectToRoute('panier_index');
     }
     
-    public function enlever(PanierService $panier, BoutiqueService $boutique, $idProduit, $quantite) {
-        $produit = $boutique->findProduitById($idProduit);
+    public function enlever(PanierService $panier, ProduitRepository $produitRepository, $idProduit, $quantite) {
+        $produit = $produitRepository->findOneById($idProduit);
  
         if (!$produit) {
             throw $this->createNotFoundException('Le produit n\'existe pas');
@@ -43,8 +43,8 @@ class PanierController extends AbstractController {
         return $this->redirectToRoute('panier_index');
     }
     
-    public function supprimer(PanierService $panier, BoutiqueService $boutique, $idProduit) {
-        $produit = $boutique->findProduitById($idProduit);
+    public function supprimer(PanierService $panier, ProduitRepository $produitRepository, $idProduit) {
+        $produit = $produitRepository->findOneById($idProduit);
  
         if (!$produit) {
             throw $this->createNotFoundException('Le produit n\'existe pas');
