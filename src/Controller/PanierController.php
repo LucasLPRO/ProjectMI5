@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\BoutiqueService;
 use App\Service\PanierService;
 use App\Repository\ProduitRepository;
 

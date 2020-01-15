@@ -52,3 +52,11 @@ panier_supprimer:
 panier_vider:
     path: /{_locale}/panier/vider
     controller: App\Controller\PanierController::vider
+    
+usager_accueil:
+    path: /{_locale}/usager
+    controller: App\Controller\UsagerController::index
+
+usager_inscription:
+    path: /{_locale}/usager/inscription
+    controller: App\Controller\UsagerController::new

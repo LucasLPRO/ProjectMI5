@@ -21,51 +21,52 @@
 </div>
 <div class="row">
     <table class="table table-striped table-sm table-hover">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Produit</th>
-                <th class="text-right">Prix</th>
-                <th>Quantite</th>
-                <th class="text-right">Total</th>
-                <th>Supprimer</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in commande %} 
-            <tr>
-                <td>
-                    <img src="{{ asset(item.produit.visuel) }}"  class="cart-img-produit" alt="{{ item.produit.libelle }}">
-                </td>
-                <td>
-                    <a href="{{ path('rayon_page', { 'idCategorie': item.produit.categorie.id })}}">
-                        <b>{{ item.produit.libelle }}</b>
-                    </a>
-                </td>
-                <td class="text-right">
-                    {{ item.produit.prix }} €
-                </td>
-                <td>
-                    <a href="{{ path('panier_enlever', { 'idProduit': item.produit.id })}}">
-                        <i class="fas fa-minus-square text-muted"></i>
-                    </a>
-                    {{ item.quantite }}
-                    <a href="{{ path('panier_ajouter', { 'idProduit': item.produit.id, })}}">
-                        <i class="fas fa-plus-square text-muted"></i>
-                    </a>
-                </td>
-                <td class="text-right">
-                    {{ item.produit.prix * item.quantite }} €
-                </td>
-                <td>
-                    <a href="{{ path('panier_supprimer', { 'idProduit': item.produit.id, })}}">
-                        <i class="fas fa-trash text-muted" data-toggle="tooltip" title="Supprimer {{ item.produit.libelle }}" data-placement="right" data-html="true"></i>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}  
-        </tbody>
         {% if nbProduit > 0 %}
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Produit</th>
+                    <th class="text-right">Prix</th>
+                    <th>Quantite</th>
+                    <th class="text-right">Total</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in commande %} 
+                <tr>
+                    <td>
+                        <img src="{{ asset(item.produit.visuel) }}"  class="cart-img-produit" alt="{{ item.produit.libelle }}">
+                    </td>
+                    <td>
+                        <a href="{{ path('rayon_page', { 'idCategorie': item.produit.categorie.id })}}">
+                            <b>{{ item.produit.libelle }}</b>
+                        </a>
+                    </td>
+                    <td class="text-right">
+                        {{ item.produit.prix }} €
+                    </td>
+                    <td>
+                        <a href="{{ path('panier_enlever', { 'idProduit': item.produit.id })}}">
+                            <i class="fas fa-minus-square text-muted"></i>
+                        </a>
+                        {{ item.quantite }}
+                        <a href="{{ path('panier_ajouter', { 'idProduit': item.produit.id, })}}">
+                            <i class="fas fa-plus-square text-muted"></i>
+                        </a>
+                    </td>
+                    <td class="text-right">
+                        {{ item.produit.prix * item.quantite }} €
+                    </td>
+                    <td>
+                        <a href="{{ path('panier_supprimer', { 'idProduit': item.produit.id, })}}">
+                            <i class="fas fa-trash text-muted" data-toggle="tooltip" title="Supprimer {{ item.produit.libelle }}" data-placement="right" data-html="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}  
+            </tbody>
+
             <thead>
                 <tr>
                     <th class="text-right" colspan="4">
@@ -80,6 +81,8 @@
                     </th>
                 </tr>
             </thead>
+        {% else %}
+            Votre panier est vide.
         {% endif %}
     </table>
 </div>

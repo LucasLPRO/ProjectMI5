@@ -3,7 +3,6 @@
 // src/Service/PanierService.php
 namespace App\Service;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
 // Service pour manipuler le panier et le stocker en session
 class PanierService {
@@ -11,13 +10,11 @@ class PanierService {
     const PANIER_SESSION = 'panier'; // Le nom de la variable de session du panier
     private $session;  // Le service Session
     //private $boutique; // Le service Boutique
-    private $categorieRepository;
     private $produitRepository;
     private $panier;   // Tableau associatif idProduit => quantite
 	                   //  donc $this->panier[$i] = quantite du produit dont l'id = $i
     // constructeur du service
-    public function __construct(SessionInterface $session, CategorieRepository $categorieRepository, ProduitRepository $produitRepository) {
-        $this->categorieRepository = $categorieRepository;
+    public function __construct(SessionInterface $session, ProduitRepository $produitRepository) {
         $this->produitRepository = $produitRepository;
         $this->session = $session;
         // Récupération du panier en session s'il existe, init. à vide sinon
