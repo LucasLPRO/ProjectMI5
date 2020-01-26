@@ -53,6 +53,10 @@ panier_vider:
     path: /{_locale}/panier/vider
     controller: App\Controller\PanierController::vider
     
+panier_validation:
+    path: /{_locale}/panier/validation
+    controller: App\Controller\PanierController:validation
+    
 usager_accueil:
     path: /{_locale}/usager
     controller: App\Controller\UsagerController::index
@@ -60,3 +64,7 @@ usager_accueil:
 usager_inscription:
     path: /{_locale}/usager/inscription
     controller: App\Controller\UsagerController::new
+    
+usager_listeCommandes:
+    path: /{_locale}/usager/listeCommandes
+    controller: App\Controller\PanierController::listeCommandes

@@ -4,6 +4,11 @@
 namespace App\Service;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\ProduitRepository;
+use App\Entity\Commande;
+use App\Entity\LigneCommande;
+use App\Entity\Usager;
+use \Datetime;
+
 // Service pour manipuler le panier et le stocker en session
 class PanierService {
     ////////////////////////////////////////////////////////////////////////////
@@ -85,5 +90,35 @@ class PanierService {
     public function vider() { 
         $this->panier = array();
         $this->session->set('PANIER_SESSION', $this->panier);
+    }
+    
+    public function panierToCommande(Usager $usager) {
+        //$em = $this->getDoctrine()->getManager();
+//        $date = new \DateTime();
+//        $date = $date->format('Y-m-d');
+        
+        $commande = new Commande();
+        $commande->setUsager($usager);
+        $commande->setDateCommande(new \DateTime());
+        //$commande->setDateCommande(date("Y-m-d"));
+        //$commande->setDateCommande(getdate());
+        $commande->setStatut("à valider");
+        foreach ($this->panier as $idProduit => $quantite) {
+            $produit = $this->produitRepository->findOneById($idProduit);
+            
+            // Création de la ligneCommande
+            $ligneCommande = new LigneCommande();
+            $ligneCommande->setArticle($produit);
+            $ligneCommande->setCommande($commande);
+            $ligneCommande->setQuantite($quantite);
+            $ligneCommande->setPrix($produit->getPrix());
+            
+            $commande->addLigneCommande($ligneCommande);
+        }
+        
+        // On vide le panier
+        $this->vider();
+        
+        return $commande;
     }
 }

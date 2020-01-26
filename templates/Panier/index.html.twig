@@ -13,9 +13,25 @@
             <b>{{ total }} €</b>
         </h1>
         <div class="col-md-12 btn-group btn-group-lg" role="group">
+            {% if nbProduit == 0 %}
+            <a class="btn btn-secondary" href="{{ path('boutique_page')}}">
+                Commencer les Courses
+            </a>
+            {% elseif app.user %}
             <a class="btn btn-secondary" href="{{ path('boutique_page')}}">
                 Continuer les Courses
             </a>
+            <a class="btn btn-secondary" href="{{ path('panier_validation')}}">
+                Passer la commande
+            </a>
+            {% else %}
+            <a class="btn btn-secondary" href="{{ path('boutique_page')}}">
+                Continuer les Courses
+            </a>
+            <a class="btn btn-secondary" href="{{ path('usager_inscription')}}">
+                Passer la commande
+            </a>
+            {% endif %}
         </div>
     </div>
 </div>

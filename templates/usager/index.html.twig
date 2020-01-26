@@ -6,10 +6,11 @@
     <h1>Mon compte</h1>
     {% if usager is defined %} 
         Bonjour {{ usager.prenom }} {{ usager.nom }}
+        <a href="{{ path('boutique_page') }}">Commencer vos achats</a>
     {% else  %}
-        Vous n'êtes pas inscrit
+        Vous n'êtes pas inscrit : <a href="{{ path('usager_inscription') }}">S'inscrire</a>
     {% endif %}
     
 
-    <a href="{{ path('usager_inscription') }}">S'inscrire</a>
+
 {% endblock %}
