@@ -6,12 +6,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints as CaptchaAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsagerRepository")
  */
 class Usager implements UserInterface
 {
+     /**
+     * @CaptchaAssert\ValidCaptcha(
+     *      message = "CAPTCHA validation failed, try again."
+     * )
+     */
+    protected $captchaCode;
+  
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -116,6 +124,15 @@ class Usager implements UserInterface
         return $this;
     }
 
+    public function getCaptchaCode()
+    {
+    return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+    $this->captchaCode = $captchaCode;
+    }
     /**
      * @see UserInterface
      */

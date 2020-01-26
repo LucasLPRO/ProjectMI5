@@ -68,3 +68,6 @@ usager_inscription:
 usager_listeCommandes:
     path: /{_locale}/usager/listeCommandes
     controller: App\Controller\PanierController::listeCommandes
+    
+captcha_routing:
+  resource: "@CaptchaBundle/Resources/config/routing.yml"
